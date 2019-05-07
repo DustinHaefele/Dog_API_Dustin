@@ -13,15 +13,19 @@ https://dog.ceo/api/breeds/image/random/3
 */
 
 'use strict';
-
+//currently numImgs is being stored as a string
 let store = {
   items: [],
   numImgs: 0,
-
 };
 
 function storeDogNum(input) {
-  store.numImgs = input;
+  if(!input){
+    store.numImgs = 3;
+  }
+  else {
+    store.numImgs = input;
+  }
 }
 
 function handleUserInput() {
@@ -38,6 +42,14 @@ function handleUserInput() {
 function main() {
   handleUserInput();
 }
+
+function getRandomDogImages() {
+  return fetch(`https://dog.ceo/api/breeds/image/random/${store.numImgs}`)
+    .then((response) => {
+      return response.json();
+    });
+}
+  
 
 $(main);
 
