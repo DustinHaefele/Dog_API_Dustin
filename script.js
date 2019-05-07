@@ -46,7 +46,20 @@ function main() {
 function getRandomDogImages() {
   return fetch(`https://dog.ceo/api/breeds/image/random/${store.numImgs}`)
     .then((response) => {return response.json();})
-    .then(response => console.log(response.message));
+    .then(response => {
+      console.log(response.message);
+      store.items = response.message;
+      dogsToDOM();
+    });
+}
+
+function dogsToDOM() {
+  console.log(store.items);
+  let html = store.items.map(function(item) {
+    return `<li><img src=${item}></li>`;
+  });
+  console.log(html);
+  $('.dogList').html(html);
 }
   
 
