@@ -35,7 +35,7 @@ function handleUserInput() {
     let inputNum = $('.numberInputBox').val();
     $('.numberInputBox').val('');
     storeDogNum(inputNum);
-    console.log(store.numImgs);
+    getRandomDogImages();
   });
 }
 
@@ -45,9 +45,8 @@ function main() {
 
 function getRandomDogImages() {
   return fetch(`https://dog.ceo/api/breeds/image/random/${store.numImgs}`)
-    .then((response) => {
-      return response.json();
-    });
+    .then((response) => {return response.json();})
+    .then(response => console.log(response.message));
 }
   
 
