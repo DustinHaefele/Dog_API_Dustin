@@ -33,27 +33,29 @@ function storeBreed(breed) {
   store.breed = breed;
 }
 
-function handleUserInput() {
-  $('#dogSearchForm').submit(function(e) {
+function handleNumberInput() {
+  $('#randomDogSearchForm').submit(function(e) {
     e.preventDefault();
-    console.log('got to here');
     let inputNum = $('.numberInputBox').val();
     $('.numberInputBox').val('');
+    storeDogNum(inputNum);
+    getRandomDogImages();
+  });
+}
+
+function handleBreedInput() {
+  $('#breedSearchForm').submit(function(e) {
+    e.preventDefault();
     let inputBreed = $('#breedInputBox').val();
     $('#breedInputBox').val('');
-    storeDogNum(inputNum);
     storeBreed(inputBreed);
-    if(!store.breed){
-      getRandomDogImages();
-    }
-    else {
-      getRandomBreedImages();
-    }
+    getRandomBreedImages();
   });
 }
 
 function main() {
-  handleUserInput();
+  handleNumberInput();
+  handleBreedInput();
 }
 
 function getRandomDogImages() {
@@ -67,7 +69,7 @@ function getRandomDogImages() {
 }
 
 function getRandomBreedImages() {
-  return fetch(`https://dog.ceo/api/breed/${store.breed}/images/random/${store.numImgs}`)
+  return fetch(`https://dog.ceo/api/breed/${store.breed}/images/random/1`)
     .then((response) => {return response.json();})
     .then(response => {
       console.log(response.message);
